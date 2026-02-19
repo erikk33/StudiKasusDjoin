@@ -19,4 +19,4 @@ function UserInvalidRegister() {
     });
   }
   
-  UserInvalidRegister();
+  //UserInvalidRegister();

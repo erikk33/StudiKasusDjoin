@@ -1,13 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { randomUUID } from 'crypto';
+import * as dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '..', 'screet_key', '.env') });
 function UserSuperAdminDelete() {
     test('Hapus bagian data kegiatan', async ({ page }) => {
+      const userSuperadmin =  process.env.USERNAME_SUPERAMDIN!;
+      const passwordSuperadmin =  process.env.PASSWORD_SUPERADMIN!;
       /*Sebelum melakukan fungsi Read superadmin harus login terlebih dahulu ke dalam sistem agar bisa melakukan fungsi read*/
       await page.goto('https://baliberbagi.org/user/login');
       //fungsi testing untuk mengisi isian kolom halmaan login
-      await page.fill('input[name="email"]', 'chika@gmail.com');
+      await page.fill('input[name="email"]', userSuperadmin);
       //isi password akun superadmin
-      await page.fill('input[name="password"]', 'chika2013');
+      await page.fill('input[name="password"]', passwordSuperadmin );
       //Fungsi klik tombol Login
       await page.getByRole('button', {
         name: 'Login'
@@ -36,4 +41,4 @@ function UserSuperAdminDelete() {
       await expect(page.getByText(/Babat Hutan Jayapura/)).not.toBeVisible();
     });
   }
-  //UserSuperAdminDelete();
+  UserSuperAdminDelete();
